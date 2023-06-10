@@ -4,6 +4,7 @@ use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\dumyApi;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\MemberController;
+use App\Http\Controllers\UploadImageController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AnonymousController;
 use App\Http\Controllers\PostController;
@@ -93,14 +94,24 @@ Route::get('category/{id}',[CategoryController::class,'show']);
 
 Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::post('categories',[CategoryController::class,'store']);
-    Route::put('category/{id}',[CategoryController::class,'show']);
+    Route::put('category/{id}',[CategoryController::class,'update']);
     Route::delete('category/{id}',[CategoryController::class,'destroy']);
 });
 
-/// category
+/// product
 Route::get('products',[ProductController::class,'index']);
 Route::get('product/{id}',[ProductController::class,'show']);
 
 Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::post('products',[ProductController::class,'store']);
+    Route::put('product/{id}',[ProductController::class,'update']);
+    Route::delete('product/{id}',[ProductController::class,'destroy']);
 });
+
+// upload single image for other app
+Route::get('images',[UploadImageController::class,'index']);
+Route::get('image/{id}',[UploadImageController::class,'show']);
+Route::get('image-by-product/{id_product}',[UploadImageController::class,'getImageByProductId']);
+Route::post('images',[UploadImageController::class,'store']);
+Route::put('image/{id}',[UploadImageController::class,'update']);
+Route::delete('image/{id}',[UploadImageController::class,'destroy']);
