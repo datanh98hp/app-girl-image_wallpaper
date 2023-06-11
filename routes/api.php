@@ -11,7 +11,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\PolicyController;
 use App\Http\Controllers\ProductController;
 
-use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\Api\CategoryController;
 
 use App\Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,7 +30,7 @@ use Illuminate\Support\Facades\Route;
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::get("data",[dumyApi::class,'getData']);
+Route::get("data", [dumyApi::class, 'getData']);
 
 // Route::get('devices',[DeviceController::class,'list']);
 // Route::post("devices",[DeviceController::class,'add']);
@@ -41,7 +41,7 @@ Route::get("data",[dumyApi::class,'getData']);
 /// using Resource
 // Route::apiResource("member", MemberController::class);
 
-Route::group(['middleware'=>'auth:sanctum'],function(){
+Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource("member", MemberController::class);
 
     //
@@ -50,68 +50,66 @@ Route::group(['middleware'=>'auth:sanctum'],function(){
     Route::put("/device/update/{id}", [DeviceController::class, 'update']);
     Route::delete("/device/delete/{id}", [DeviceController::class, 'delete']);
     Route::get("/devices/search/{key}", [DeviceController::class, 'search']);
-
-
 });
 // Route::apiResource("member", MemberController::class)->middleware(['middleware' => 'auth:sanctum']);
-Route::post("login",[UserController::class,'index']);
-Route::post("register",[UserController::class,'register']);
+Route::post("login", [UserController::class, 'index']);
+Route::post("register", [UserController::class, 'register']);
 
 Route::post("upload", [FileController::class, 'upload']);
 
 
-
-Route::get('anonymous',[AnonymousController::class,'index']);
-Route::post('anonymous',[AnonymousController::class,'loginAnonymous']);
+Route::get('anonymous', [AnonymousController::class, 'index']);
+Route::post('anonymous', [AnonymousController::class, 'loginAnonymous']);
 //show
-Route::get('ahttp://localhost/be-app/public/api/postsnonymous/{id}',[AnonymousController::class,'show']);
+Route::get('anonymous/{id}', [AnonymousController::class, 'show']);
 
 //post
-Route::get('posts',[PostController::class,'index']);
-Route::group(['middleware'=>'auth:sanctum'],function(){
-    
-    Route::post('posts',[PostController::class,'store']);
-    Route::put('posts/{id}',[PostController::class,'update']);
-    Route::delete('posts/{id}',[PostController::class,'destroy']);
+Route::get('posts', [PostController::class, 'index']);
+
+Route::group(['middleware' => 'auth:sanctum'], function () {
+
+    Route::post('posts', [PostController::class, 'store']);
+    Route::put('posts/{id}', [PostController::class, 'update']);
+    Route::delete('posts/{id}', [PostController::class, 'destroy']);
 });
-Route::get('posts-by/{user_id}',[PostController::class,'getByUserId']);
-Route::get('posts/{id}',[PostController::class,'show']);
+Route::get('posts-by/{user_id}', [PostController::class, 'getByUserId']);
+Route::get('posts/{id}', [PostController::class, 'show']);
 
 
 /// policy
-Route::get('policies',[PolicyController::class,'index']);
-Route::get('policy/{id}',[PolicyController::class,'show']);
+Route::get('policies', [PolicyController::class, 'index']);
+Route::get('policy/{id}', [PolicyController::class, 'show']);
 
-Route::group(['middleware'=>'auth:sanctum'],function(){
-    Route::post('policies',[PolicyController::class,'store']);
-    Route::put('policy/{id}',[PolicyController::class,'update']);
-    Route::delete('policy/{id}',[PolicyController::class,'destroy']);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('policies', [PolicyController::class, 'store']);
+    Route::put('policy/{id}', [PolicyController::class, 'update']);
+    Route::delete('policy/{id}', [PolicyController::class, 'destroy']);
 });
 
 /// category
-Route::get('categories',[CategoryController::class,'index']);
-Route::get('category/{id}',[CategoryController::class,'show']);
+Route::get('categories', [CategoryController::class, 'index']);
+Route::get('category/{id}', [CategoryController::class, 'show']);
 
-Route::group(['middleware'=>'auth:sanctum'],function(){
-    Route::post('categories',[CategoryController::class,'store']);
-    Route::put('category/{id}',[CategoryController::class,'update']);
-    Route::delete('category/{id}',[CategoryController::class,'destroy']);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('categories', [CategoryController::class, 'store']);
+    Route::put('category/{id}', [CategoryController::class, 'update']);
+    Route::delete('category/{id}', [CategoryController::class, 'destroy']);
 });
 
 /// product
-Route::get('products',[ProductController::class,'index']);
-Route::get('product/{id}',[ProductController::class,'show']);
+Route::get('products', [ProductController::class, 'index']);
+Route::get('product/{id}', [ProductController::class, 'show']);
 
-Route::group(['middleware'=>'auth:sanctum'],function(){
-    Route::post('products',[ProductController::class,'store']);
-    Route::put('product/{id}',[ProductController::class,'update']);
-    Route::delete('product/{id}',[ProductController::class,'destroy']);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::post('products', [ProductController::class, 'store']);
+    Route::put('product/{id}', [ProductController::class, 'update']);
+    Route::delete('product/{id}', [ProductController::class, 'destroy']);
 });
 
 // upload single image for other app
-Route::get('images',[UploadImageController::class,'index']);
-Route::get('image/{id}',[UploadImageController::class,'show']);
-Route::get('image-by-product/{id_product}',[UploadImageController::class,'getImageByProductId']);
-Route::post('images',[UploadImageController::class,'store']);
-Route::put('image/{id}',[UploadImageController::class,'update']);
-Route::delete('image/{id}',[UploadImageController::class,'destroy']);
+Route::get('images', [UploadImageController::class, 'index']);
+Route::get('image/{id}', [UploadImageController::class, 'show']);
+Route::get('image-by-product/{id_product}', [UploadImageController::class, 'getImageByProductId']);
+Route::post('images', [UploadImageController::class, 'store']);
+Route::put('image/{id}', [UploadImageController::class, 'update']);
+Route::delete('image/{id}', [UploadImageController::class, 'destroy']);

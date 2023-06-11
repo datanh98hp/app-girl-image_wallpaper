@@ -62,10 +62,12 @@ class CategoryController extends Controller
                 $result = $new->save();
                 if ($result) {
                     return [
+                        "status"=>"success",
                         "result" => "Data has been save !"
                     ];
                 } else {
                     return [
+                        "status"=>"fail",
                         "result" => "Operation Failed !"
                     ];
                 }
